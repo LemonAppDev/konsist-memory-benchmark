@@ -176,3 +176,7 @@ Konsist `develop` (2026-10-10) vs [Konsist PR #1960](https://github.com/LemonApp
 | Smallest `-Xmx` that completes the suite | 224 MB | 160 MB (−29%) | 928 MB | 640 MB (−31%) |
 | Heap retained after the suite | 216 MB | 151 MB (−30%) | 942 MB | 619 MB (−34%) |
 | Suite CPU time (median of 5 runs) | 13.6 s | 12.4 s (−9%) | 58.7 s | 51.1 s (−13%) |
+
+## License
+
+[Apache License 2.0](LICENSE), the same as Konsist.
