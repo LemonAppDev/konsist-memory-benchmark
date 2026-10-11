@@ -11,8 +11,11 @@ val konsist = providers.gradleProperty("konsist").getOrElse("0.18.1")
 // Name of the installation directory (build/install/<variant>), so multiple Konsist versions can be installed side by side
 val variant = providers.gradleProperty("variant").getOrElse(konsist.substringAfterLast('/').removeSuffix(".jar"))
 
-// Dependencies of Konsist jar (jar file has no POM, so its dependencies are declared here)
-val kotlinCompilerVersion = providers.gradleProperty("kotlinCompilerVersion").getOrElse("2.4.21")
+// Dependencies of Konsist jar (jar file has no POM, so its dependencies are declared here).
+// Konsist runs with the Kotlin compiler version of the project using it, so the version can be set for Konsist from
+// Maven too (by default the version from Konsist POM is used).
+val kotlinCompilerVersion = providers.gradleProperty("kotlinCompilerVersion").orNull
+val defaultKotlinCompilerVersion = "2.4.21"
 val coroutinesVersion = providers.gradleProperty("coroutinesVersion").getOrElse("1.9.0")
 
 repositories {
@@ -23,10 +26,16 @@ repositories {
 dependencies {
     if (konsist.endsWith(".jar")) {
         implementation(files(konsist))
-        implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:$kotlinCompilerVersion")
+        implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:${kotlinCompilerVersion ?: defaultKotlinCompilerVersion}")
         implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion")
     } else {
         implementation("com.lemonappdev:konsist:$konsist")
+
+        if (kotlinCompilerVersion != null) {
+            implementation("org.jetbrains.kotlin:kotlin-compiler-embeddable") {
+                version { strictly(kotlinCompilerVersion) }
+            }
+        }
     }
 }
 

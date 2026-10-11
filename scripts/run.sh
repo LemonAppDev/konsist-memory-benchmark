@@ -26,6 +26,7 @@ BIN="$ROOT_DIR/build/install/$VARIANT/bin/konsist-memory-benchmark"
 
 # Relative output paths passed to the benchmark are resolved against the directory the script was started from
 export BENCHMARK_CALLER_DIR="$PWD"
+export BENCHMARK_VARIANT="$VARIANT"
 
 cd "$PROJECT_DIR"
 JAVA_OPTS="-Xmx$MAX_HEAP ${BENCHMARK_JAVA_OPTS:-}" exec "$BIN" "$@"
