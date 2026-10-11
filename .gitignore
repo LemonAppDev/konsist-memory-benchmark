@@ -1,0 +1,19 @@
+# Gradle
+.gradle/
+build/
+.kotlin/
+
+# IDE
+.idea/
+*.iml
+
+# Benchmark projects, Konsist jars and results (created by scripts)
+projects/
+konsist-jars/
+results/
+
+# Heap dumps and flight recordings
+*.hprof
+*.jfr
+
+.DS_Store
